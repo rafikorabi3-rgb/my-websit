@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مولّد الفيديو بالذكاء الاصطناعي</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">🎬</span>
+        <span class="logo-text">VidAI</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">الرئيسية</a></li>
+        <li><a href="#features">المميزات</a></li>
+        <li><a href="#demo">تجربة مباشرة</a></li>
+        <li><a href="#how-it-works">كيف يعمل</a></li>
+        <li><a href="#showcase">معرض الأعمال</a></li>
+      </ul>
+      <button class="btn-nav">ابدأ مجاناً</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        مدعوم بأحدث نماذج الذكاء الاصطناعي
+      </div>
+      <h1 class="hero-title">
+        أنشئ <span class="gradient-text">فيديو احترافي</span><br />
+        بكلمات بسيطة
+      </h1>
+      <p class="hero-subtitle">
+        اكتب وصفاً لمشروعك وسيقوم الذكاء الاصطناعي بتوليد فيديو شرح
+        كامل مع تصميم احترافي، رسوم متحركة، وصوت تلقائي.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToDemo()">جرّب الآن مجاناً</button>
+        <button class="btn-outline" onclick="playDemoVideo()">
+          <span class="play-icon">▶</span> شاهد الفيديو التوضيحي
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">+50K</span>
+          <span class="stat-label">فيديو مُولَّد</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">98%</span>
+          <span class="stat-label">رضا المستخدمين</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">30ث</span>
+          <span class="stat-label">متوسط وقت التوليد</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <div class="card-icon">✨</div>
+        <div class="card-text">جاري التوليد…</div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="card-icon">🎯</div>
+        <div class="card-text">دقة عالية 4K</div>
+      </div>
+      <div class="floating-card card-3">
+        <div class="card-icon">🌐</div>
+        <div class="card-text">30+ لغة مدعومة</div>
+      </div>
+      <div class="screen-mockup">
+        <div class="screen-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <canvas id="previewCanvas" width="480" height="270"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">المميزات</span>
+        <h2>كل ما تحتاجه في منصة واحدة</h2>
+        <p>أدوات متكاملة لإنشاء محتوى فيديو احترافي بالذكاء الاصطناعي</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-delay="0">
+          <div class="feature-icon">🤖</div>
+          <h3>ذكاء اصطناعي متقدم</h3>
+          <p>نماذج GPT-4 و Stable Diffusion لتوليد نصوص وصور ورسوم متحركة بجودة سينمائية</p>
+        </div>
+        <div class="feature-card" data-delay="100">
+          <div class="feature-icon">🎨</div>
+          <h3>تصاميم احترافية</h3>
+          <p>مئات القوالب الجاهزة مع إمكانية التخصيص الكامل للألوان والخطوط والتأثيرات</p>
+        </div>
+        <div class="feature-card" data-delay="200">
+          <div class="feature-icon">🔊</div>
+          <h3>أصوات واقعية</h3>
+          <p>تحويل النص إلى كلام بأصوات طبيعية بأكثر من 30 لغة ولهجة مختلفة</p>
+        </div>
+        <div class="feature-card" data-delay="300">
+          <div class="feature-icon">⚡</div>
+          <h3>توليد فوري</h3>
+          <p>احصل على فيديوك خلال ثوانٍ معدودة بفضل البنية التحتية السحابية عالية الأداء</p>
+        </div>
+        <div class="feature-card" data-delay="400">
+          <div class="feature-icon">📊</div>
+          <h3>رسوم بيانية ذكية</h3>
+          <p>تحويل البيانات والإحصائيات إلى رسوم بيانية متحركة جذابة تلقائياً</p>
+        </div>
+        <div class="feature-card" data-delay="500">
+          <div class="feature-icon">🔗</div>
+          <h3>تكامل سهل</h3>
+          <p>API قوي للتكامل مع تطبيقاتك، مع دعم كامل لـ Zapier وMake وغيرها</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO GENERATOR -->
+  <section id="demo" class="demo-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">تجربة مباشرة</span>
+        <h2>أنشئ فيديوك الآن</h2>
+        <p>اكتب وصف مشروعك وشاهد الفيديو يُولَّد أمامك</p>
+      </div>
+      <div class="demo-workspace">
+        <div class="demo-input-panel">
+          <h3>⚙️ إعدادات الفيديو</h3>
+
+          <div class="form-group">
+            <label>وصف المشروع أو الموضوع</label>
+            <textarea id="promptInput" rows="4" placeholder="مثال: شرح تصميم موقع متجر إلكتروني متكامل يشمل صفحة الرئيسية والمنتجات وسلة التسوق وإتمام الشراء..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>نوع الفيديو</label>
+              <select id="videoType">
+                <option value="explainer">شرح وتوضيح</option>
+                <option value="tutorial">درس تعليمي</option>
+                <option value="pitch">عرض مشروع</option>
+                <option value="promo">ترويجي</option>
+              </select>
+            </div>
+            <div class="form-group half">
+              <label>مدة الفيديو</label>
+              <select id="duration">
+                <option value="30">30 ثانية</option>
+                <option value="60" selected>دقيقة واحدة</option>
+                <option value="120">دقيقتان</option>
+                <option value="300">5 دقائق</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>نمط التصميم</label>
+              <select id="style">
+                <option value="modern">عصري</option>
+                <option value="minimal">مينيمال</option>
+                <option value="corporate">مؤسسي</option>
+                <option value="creative">إبداعي</option>
+              </select>
+            </div>
+            <div class="form-group half">
+              <label>اللغة</label>
+              <select id="lang">
+                <option value="ar">العربية</option>
+                <option value="en">الإنجليزية</option>
+                <option value="fr">الفرنسية</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="color-picker-group">
+            <label>لون رئيسي</label>
+            <div class="color-swatches">
+              <div class="swatch active" style="background:#6C63FF" onclick="selectColor(this,'#6C63FF')"></div>
+              <div class="swatch" style="background:#FF6584" onclick="selectColor(this,'#FF6584')"></div>
+              <div class="swatch" style="background:#43E97B" onclick="selectColor(this,'#43E97B')"></div>
+              <div class="swatch" style="background:#F7971E" onclick="selectColor(this,'#F7971E')"></div>
+              <div class="swatch" style="background:#2196F3" onclick="selectColor(this,'#2196F3')"></div>
+              <div class="swatch" style="background:#E91E63" onclick="selectColor(this,'#E91E63')"></div>
+            </div>
+          </div>
+
+          <button class="btn-generate" id="generateBtn" onclick="generateVideo()">
+            <span class="btn-icon">🎬</span>
+            توليد الفيديو بالذكاء الاصطناعي
+          </button>
+        </div>
+
+        <div class="demo-output-panel">
+          <div class="video-preview-area">
+            <div class="preview-header">
+              <span>معاينة الفيديو</span>
+              <div class="preview-controls">
+                <button id="playBtn" onclick="togglePlay()" disabled>▶</button>
+                <button id="downloadBtn" onclick="downloadFrame()" disabled>⬇ تحميل</button>
+              </div>
+            </div>
+            <div class="canvas-wrapper">
+              <canvas id="outputCanvas" width="640" height="360"></canvas>
+              <div class="canvas-overlay" id="canvasOverlay">
+                <div class="overlay-content">
+                  <div class="ai-icon">🤖</div>
+                  <p>سيظهر الفيديو هنا بعد التوليد</p>
+                </div>
+              </div>
+            </div>
+            <div class="video-timeline" id="timeline">
+              <div class="timeline-progress" id="timelineProgress"></div>
+              <div class="timeline-scenes" id="timelineScenes"></div>
+            </div>
+          </div>
+
+          <div class="generation-log" id="generationLog">
+            <div class="log-header">📋 سجل التوليد</div>
+            <div class="log-body" id="logBody">
+              <p class="log-placeholder">سيظهر تقدم التوليد هنا…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="how-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">آلية العمل</span>
+        <h2>كيف يعمل الذكاء الاصطناعي؟</h2>
+        <p>عملية التوليد من النص إلى الفيديو في 4 خطوات</p>
+      </div>
+      <div class="steps-timeline">
+        <div class="step" data-step="1">
+          <div class="step-icon">📝</div>
+          <div class="step-content">
+            <h3>تحليل النص</h3>
+            <p>يقوم النموذج اللغوي بتحليل وصفك واستخراج العناصر الرئيسية: الموضوع، الهيكل، والرسائل المهمة.</p>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" data-step="2">
+          <div class="step-icon">🎨</div>
+          <div class="step-content">
+            <h3>توليد التصميم</h3>
+            <p>يُنشئ نموذج Stable Diffusion صوراً ومشاهد مخصصة تتناسب مع موضوعك ونمط التصميم المختار.</p>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" data-step="3">
+          <div class="step-icon">🎬</div>
+          <div class="step-content">
+            <h3>تجميع الفيديو</h3>
+            <p>يُجمّع محرك الرسوم المتحركة كل العناصر: الصور، النصوص، الانتقالات، والتأثيرات في مشاهد متسلسلة.</p>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" data-step="4">
+          <div class="step-icon">🔊</div>
+          <div class="step-content">
+            <h3>إضافة الصوت</h3>
+            <p>يُحوّل نموذج TTS النص إلى صوت احترافي، ويُضاف الموسيقى الخلفية تلقائياً لإنتاج فيديو متكامل.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section id="showcase" class="showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">معرض الأعمال</span>
+        <h2>فيديوهات مُولَّدة بالذكاء الاصطناعي</h2>
+        <p>أمثلة حقيقية من مشاريع أنشأها مستخدمونا</p>
+      </div>
+      <div class="showcase-grid">
+        <div class="showcase-card" onclick="loadShowcase(0)">
+          <canvas class="showcase-canvas" id="sc0" width="320" height="180"></canvas>
+          <div class="showcase-info">
+            <h4>شرح تصميم متجر إلكتروني</h4>
+            <span class="showcase-tag">تجارة إلكترونية</span>
+            <span class="showcase-duration">2:30 دقيقة</span>
+          </div>
+        </div>
+        <div class="showcase-card" onclick="loadShowcase(1)">
+          <canvas class="showcase-canvas" id="sc1" width="320" height="180"></canvas>
+          <div class="showcase-info">
+            <h4>عرض تطبيق توصيل طلبات</h4>
+            <span class="showcase-tag">تطبيقات</span>
+            <span class="showcase-duration">1:45 دقيقة</span>
+          </div>
+        </div>
+        <div class="showcase-card" onclick="loadShowcase(2)">
+          <canvas class="showcase-canvas" id="sc2" width="320" height="180"></canvas>
+          <div class="showcase-info">
+            <h4>شرح نظام إدارة المدرسة</h4>
+            <span class="showcase-tag">تعليم</span>
+            <span class="showcase-duration">3:00 دقيقة</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-bg-glow"></div>
+        <h2>ابدأ في إنشاء فيديوهاتك الآن</h2>
+        <p>انضم إلى أكثر من 10,000 منشئ محتوى ومطور يستخدمون VidAI</p>
+        <div class="cta-actions">
+          <button class="btn-primary large" onclick="scrollToDemo()">ابدأ مجاناً</button>
+          <button class="btn-ghost">تعرف على الخطط</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <span class="logo-icon">🎬</span>
+            <span class="logo-text">VidAI</span>
+          </div>
+          <p>منصة توليد الفيديو بالذكاء الاصطناعي الأكثر تقدماً في العالم العربي</p>
+        </div>
+        <div class="footer-links">
+          <h4>المنتج</h4>
+          <a href="#">المميزات</a>
+          <a href="#">الأسعار</a>
+          <a href="#">API</a>
+          <a href="#">التوثيق</a>
+        </div>
+        <div class="footer-links">
+          <h4>الشركة</h4>
+          <a href="#">من نحن</a>
+          <a href="#">المدونة</a>
+          <a href="#">وظائف</a>
+          <a href="#">تواصل معنا</a>
+        </div>
+        <div class="footer-links">
+          <h4>الدعم</h4>
+          <a href="#">مركز المساعدة</a>
+          <a href="#">المجتمع</a>
+          <a href="#">الشروط والأحكام</a>
+          <a href="#">الخصوصية</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 VidAI — جميع الحقوق محفوظة</p>
+        <div class="social-links">
+          <a href="#">Twitter</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
