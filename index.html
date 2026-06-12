@@ -1,245 +1,277 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مولّد الفيديو بالذكاء الاصطناعي</title>
+  <title>ATARI — Born to Play</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
 </head>
 <body>
+
+  <!-- SCANLINES OVERLAY -->
+  <div class="scanlines"></div>
 
   <!-- NAV -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">
-        <span class="logo-icon">🎬</span>
-        <span class="logo-text">VidAI</span>
+        <div class="atari-logo">
+          <div class="logo-mark">
+            <div class="logo-center"></div>
+            <div class="logo-left"></div>
+            <div class="logo-right"></div>
+          </div>
+          <span class="logo-text">ATARI</span>
+        </div>
       </div>
       <ul class="nav-links">
-        <li><a href="#hero">الرئيسية</a></li>
-        <li><a href="#features">المميزات</a></li>
-        <li><a href="#demo">تجربة مباشرة</a></li>
-        <li><a href="#how-it-works">كيف يعمل</a></li>
-        <li><a href="#showcase">معرض الأعمال</a></li>
+        <li><a href="#hero">HOME</a></li>
+        <li><a href="#games">GAMES</a></li>
+        <li><a href="#consoles">CONSOLES</a></li>
+        <li><a href="#history">HISTORY</a></li>
       </ul>
-      <button class="btn-nav">ابدأ مجاناً</button>
+      <button class="btn-nav">PLAY NOW</button>
+      <button class="hamburger" id="hamburger" aria-label="menu">&#9776;</button>
     </div>
+    <ul class="nav-mobile" id="navMobile">
+      <li><a href="#hero" onclick="closeMobileMenu()">HOME</a></li>
+      <li><a href="#games" onclick="closeMobileMenu()">GAMES</a></li>
+      <li><a href="#consoles" onclick="closeMobileMenu()">CONSOLES</a></li>
+      <li><a href="#history" onclick="closeMobileMenu()">HISTORY</a></li>
+    </ul>
   </nav>
 
   <!-- HERO -->
   <section id="hero" class="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-particles" id="particles"></div>
+    <div class="hero-grid-bg"></div>
+    <canvas id="heroCanvas" class="hero-canvas"></canvas>
     <div class="hero-content">
-      <div class="badge-pill">
-        <span class="badge-dot"></span>
-        مدعوم بأحدث نماذج الذكاء الاصطناعي
-      </div>
+      <div class="pixel-badge">EST. 1972</div>
       <h1 class="hero-title">
-        أنشئ <span class="gradient-text">فيديو احترافي</span><br />
-        بكلمات بسيطة
+        <span class="title-line">BORN</span>
+        <span class="title-line accent">TO PLAY</span>
       </h1>
-      <p class="hero-subtitle">
-        اكتب وصفاً لمشروعك وسيقوم الذكاء الاصطناعي بتوليد فيديو شرح
-        كامل مع تصميم احترافي، رسوم متحركة، وصوت تلقائي.
-      </p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="scrollToDemo()">جرّب الآن مجاناً</button>
-        <button class="btn-outline" onclick="playDemoVideo()">
-          <span class="play-icon">▶</span> شاهد الفيديو التوضيحي
-        </button>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num">+50K</span>
-          <span class="stat-label">فيديو مُولَّد</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">98%</span>
-          <span class="stat-label">رضا المستخدمين</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">30ث</span>
-          <span class="stat-label">متوسط وقت التوليد</span>
-        </div>
+      <p class="hero-sub">The pioneers of home gaming. 50 years of pixels, joysticks, and endless fun.</p>
+      <div class="hero-btns">
+        <a href="#games" class="btn-primary">EXPLORE GAMES</a>
+        <a href="#history" class="btn-outline">OUR STORY</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="floating-card card-1">
-        <div class="card-icon">✨</div>
-        <div class="card-text">جاري التوليد…</div>
-        <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="hero-joystick">
+      <div class="joystick-base">
+        <div class="joystick-stick" id="joystickStick"></div>
       </div>
-      <div class="floating-card card-2">
-        <div class="card-icon">🎯</div>
-        <div class="card-text">دقة عالية 4K</div>
-      </div>
-      <div class="floating-card card-3">
-        <div class="card-icon">🌐</div>
-        <div class="card-text">30+ لغة مدعومة</div>
-      </div>
-      <div class="screen-mockup">
-        <div class="screen-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-        </div>
-        <canvas id="previewCanvas" width="480" height="270"></canvas>
+      <div class="joystick-buttons">
+        <button class="joy-btn red" onclick="pulseBtn(this)"></button>
+        <button class="joy-btn orange" onclick="pulseBtn(this)"></button>
       </div>
     </div>
+    <div class="scroll-hint">▼ SCROLL ▼</div>
   </section>
 
-  <!-- FEATURES -->
-  <section id="features" class="features">
+  <!-- MINI PONG GAME -->
+  <section class="pong-section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">المميزات</span>
-        <h2>كل ما تحتاجه في منصة واحدة</h2>
-        <p>أدوات متكاملة لإنشاء محتوى فيديو احترافي بالذكاء الاصطناعي</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card" data-delay="0">
-          <div class="feature-icon">🤖</div>
-          <h3>ذكاء اصطناعي متقدم</h3>
-          <p>نماذج GPT-4 و Stable Diffusion لتوليد نصوص وصور ورسوم متحركة بجودة سينمائية</p>
-        </div>
-        <div class="feature-card" data-delay="100">
-          <div class="feature-icon">🎨</div>
-          <h3>تصاميم احترافية</h3>
-          <p>مئات القوالب الجاهزة مع إمكانية التخصيص الكامل للألوان والخطوط والتأثيرات</p>
-        </div>
-        <div class="feature-card" data-delay="200">
-          <div class="feature-icon">🔊</div>
-          <h3>أصوات واقعية</h3>
-          <p>تحويل النص إلى كلام بأصوات طبيعية بأكثر من 30 لغة ولهجة مختلفة</p>
-        </div>
-        <div class="feature-card" data-delay="300">
-          <div class="feature-icon">⚡</div>
-          <h3>توليد فوري</h3>
-          <p>احصل على فيديوك خلال ثوانٍ معدودة بفضل البنية التحتية السحابية عالية الأداء</p>
-        </div>
-        <div class="feature-card" data-delay="400">
-          <div class="feature-icon">📊</div>
-          <h3>رسوم بيانية ذكية</h3>
-          <p>تحويل البيانات والإحصائيات إلى رسوم بيانية متحركة جذابة تلقائياً</p>
-        </div>
-        <div class="feature-card" data-delay="500">
-          <div class="feature-icon">🔗</div>
-          <h3>تكامل سهل</h3>
-          <p>API قوي للتكامل مع تطبيقاتك، مع دعم كامل لـ Zapier وMake وغيرها</p>
+      <div class="pong-wrapper">
+        <div class="pong-label">PLAY PONG — USE MOUSE / TOUCH</div>
+        <canvas id="pongCanvas" width="640" height="240"></canvas>
+        <div class="pong-score">
+          <span id="playerScore">0</span>
+          <span class="score-divider">:</span>
+          <span id="cpuScore">0</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DEMO GENERATOR -->
-  <section id="demo" class="demo-section">
+  <!-- GAMES -->
+  <section id="games" class="games-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">تجربة مباشرة</span>
-        <h2>أنشئ فيديوك الآن</h2>
-        <p>اكتب وصف مشروعك وشاهد الفيديو يُولَّد أمامك</p>
+        <span class="section-tag">CLASSIC ARCADE</span>
+        <h2>LEGENDARY GAMES</h2>
+        <p>Timeless titles that defined a generation</p>
       </div>
-      <div class="demo-workspace">
-        <div class="demo-input-panel">
-          <h3>⚙️ إعدادات الفيديو</h3>
-
-          <div class="form-group">
-            <label>وصف المشروع أو الموضوع</label>
-            <textarea id="promptInput" rows="4" placeholder="مثال: شرح تصميم موقع متجر إلكتروني متكامل يشمل صفحة الرئيسية والمنتجات وسلة التسوق وإتمام الشراء..."></textarea>
+      <div class="games-grid">
+        <div class="game-card" data-color="#ff6600">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt0" width="200" height="130"></canvas>
           </div>
-
-          <div class="form-row">
-            <div class="form-group half">
-              <label>نوع الفيديو</label>
-              <select id="videoType">
-                <option value="explainer">شرح وتوضيح</option>
-                <option value="tutorial">درس تعليمي</option>
-                <option value="pitch">عرض مشروع</option>
-                <option value="promo">ترويجي</option>
-              </select>
-            </div>
-            <div class="form-group half">
-              <label>مدة الفيديو</label>
-              <select id="duration">
-                <option value="30">30 ثانية</option>
-                <option value="60" selected>دقيقة واحدة</option>
-                <option value="120">دقيقتان</option>
-                <option value="300">5 دقائق</option>
-              </select>
+          <div class="game-info">
+            <h3>PONG</h3>
+            <span class="game-year">1972</span>
+            <p>The game that started it all. Two paddles, one ball, pure competition.</p>
+            <div class="game-tags">
+              <span class="tag">ARCADE</span>
+              <span class="tag">2 PLAYER</span>
             </div>
           </div>
-
-          <div class="form-row">
-            <div class="form-group half">
-              <label>نمط التصميم</label>
-              <select id="style">
-                <option value="modern">عصري</option>
-                <option value="minimal">مينيمال</option>
-                <option value="corporate">مؤسسي</option>
-                <option value="creative">إبداعي</option>
-              </select>
-            </div>
-            <div class="form-group half">
-              <label>اللغة</label>
-              <select id="lang">
-                <option value="ar">العربية</option>
-                <option value="en">الإنجليزية</option>
-                <option value="fr">الفرنسية</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="color-picker-group">
-            <label>لون رئيسي</label>
-            <div class="color-swatches">
-              <div class="swatch active" style="background:#6C63FF" onclick="selectColor(this,'#6C63FF')"></div>
-              <div class="swatch" style="background:#FF6584" onclick="selectColor(this,'#FF6584')"></div>
-              <div class="swatch" style="background:#43E97B" onclick="selectColor(this,'#43E97B')"></div>
-              <div class="swatch" style="background:#F7971E" onclick="selectColor(this,'#F7971E')"></div>
-              <div class="swatch" style="background:#2196F3" onclick="selectColor(this,'#2196F3')"></div>
-              <div class="swatch" style="background:#E91E63" onclick="selectColor(this,'#E91E63')"></div>
-            </div>
-          </div>
-
-          <button class="btn-generate" id="generateBtn" onclick="generateVideo()">
-            <span class="btn-icon">🎬</span>
-            توليد الفيديو بالذكاء الاصطناعي
-          </button>
         </div>
-
-        <div class="demo-output-panel">
-          <div class="video-preview-area">
-            <div class="preview-header">
-              <span>معاينة الفيديو</span>
-              <div class="preview-controls">
-                <button id="playBtn" onclick="togglePlay()" disabled>▶</button>
-                <button id="downloadBtn" onclick="downloadFrame()" disabled>⬇ تحميل</button>
-              </div>
+        <div class="game-card" data-color="#ff3333">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt1" width="200" height="130"></canvas>
+          </div>
+          <div class="game-info">
+            <h3>ASTEROIDS</h3>
+            <span class="game-year">1979</span>
+            <p>Navigate through space, destroy asteroids, survive the cosmos.</p>
+            <div class="game-tags">
+              <span class="tag">SPACE</span>
+              <span class="tag">ACTION</span>
             </div>
-            <div class="canvas-wrapper">
-              <canvas id="outputCanvas" width="640" height="360"></canvas>
-              <div class="canvas-overlay" id="canvasOverlay">
-                <div class="overlay-content">
-                  <div class="ai-icon">🤖</div>
-                  <p>سيظهر الفيديو هنا بعد التوليد</p>
+          </div>
+        </div>
+        <div class="game-card" data-color="#33ff99">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt2" width="200" height="130"></canvas>
+          </div>
+          <div class="game-info">
+            <h3>CENTIPEDE</h3>
+            <span class="game-year">1980</span>
+            <p>Shoot the centipede winding down the screen before it reaches you.</p>
+            <div class="game-tags">
+              <span class="tag">SHOOTER</span>
+              <span class="tag">CLASSIC</span>
+            </div>
+          </div>
+        </div>
+        <div class="game-card" data-color="#ffff00">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt3" width="200" height="130"></canvas>
+          </div>
+          <div class="game-info">
+            <h3>MISSILE COMMAND</h3>
+            <span class="game-year">1980</span>
+            <p>Defend your cities from an endless barrage of ballistic missiles.</p>
+            <div class="game-tags">
+              <span class="tag">STRATEGY</span>
+              <span class="tag">ACTION</span>
+            </div>
+          </div>
+        </div>
+        <div class="game-card" data-color="#ff66ff">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt4" width="200" height="130"></canvas>
+          </div>
+          <div class="game-info">
+            <h3>BREAKOUT</h3>
+            <span class="game-year">1976</span>
+            <p>Bounce the ball, break all the bricks. Simple concept, endless hours.</p>
+            <div class="game-tags">
+              <span class="tag">PUZZLE</span>
+              <span class="tag">1 PLAYER</span>
+            </div>
+          </div>
+        </div>
+        <div class="game-card" data-color="#33ccff">
+          <div class="game-screen">
+            <canvas class="game-thumb" id="gt5" width="200" height="130"></canvas>
+          </div>
+          <div class="game-info">
+            <h3>TEMPEST</h3>
+            <span class="game-year">1981</span>
+            <p>The first vector graphics masterpiece. Shoot enemies on the rim of shapes.</p>
+            <div class="game-tags">
+              <span class="tag">VECTOR</span>
+              <span class="tag">SCI-FI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSOLES -->
+  <section id="consoles" class="consoles-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">HARDWARE</span>
+        <h2>ICONIC CONSOLES</h2>
+        <p>The machines that brought the arcade home</p>
+      </div>
+      <div class="consoles-timeline">
+        <div class="console-item">
+          <div class="console-year-badge">1977</div>
+          <div class="console-card">
+            <div class="console-visual">
+              <div class="console-2600">
+                <div class="console-body">
+                  <div class="console-stripe"></div>
+                  <div class="console-switches">
+                    <div class="sw"></div><div class="sw"></div><div class="sw"></div>
+                    <div class="sw"></div><div class="sw"></div><div class="sw"></div>
+                  </div>
+                  <div class="console-cartridge"></div>
+                </div>
+                <div class="console-joystick-mini">
+                  <div class="joy-mini-base"><div class="joy-mini-stick"></div></div>
                 </div>
               </div>
             </div>
-            <div class="video-timeline" id="timeline">
-              <div class="timeline-progress" id="timelineProgress"></div>
-              <div class="timeline-scenes" id="timelineScenes"></div>
+            <div class="console-info">
+              <h3>ATARI 2600</h3>
+              <p>The console that launched a billion childhoods. Over 500 game titles.</p>
+              <ul class="console-specs">
+                <li><span>CPU</span> MOS 6507 @ 1.19 MHz</li>
+                <li><span>RAM</span> 128 bytes</li>
+                <li><span>COLORS</span> 128</li>
+                <li><span>GAMES</span> 500+</li>
+              </ul>
             </div>
           </div>
+        </div>
 
-          <div class="generation-log" id="generationLog">
-            <div class="log-header">📋 سجل التوليد</div>
-            <div class="log-body" id="logBody">
-              <p class="log-placeholder">سيظهر تقدم التوليد هنا…</p>
+        <div class="console-item reverse">
+          <div class="console-year-badge">1987</div>
+          <div class="console-card">
+            <div class="console-visual">
+              <div class="console-7800">
+                <div class="c7800-body">
+                  <div class="c7800-label">7800</div>
+                  <div class="c7800-buttons">
+                    <div class="c7btn"></div><div class="c7btn"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="console-info">
+              <h3>ATARI 7800</h3>
+              <p>Backward compatible powerhouse. Better graphics, same classic gameplay.</p>
+              <ul class="console-specs">
+                <li><span>CPU</span> MOS 6502C @ 1.79 MHz</li>
+                <li><span>RAM</span> 4 KB</li>
+                <li><span>COLORS</span> 256</li>
+                <li><span>GAMES</span> 60+</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="console-item">
+          <div class="console-year-badge">1989</div>
+          <div class="console-card">
+            <div class="console-visual">
+              <div class="console-lynx">
+                <div class="lynx-body">
+                  <div class="lynx-screen"></div>
+                  <div class="lynx-dpad"></div>
+                  <div class="lynx-btns">
+                    <div class="lbtn"></div><div class="lbtn"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="console-info">
+              <h3>ATARI LYNX</h3>
+              <p>World's first handheld with a color LCD screen. Ahead of its time.</p>
+              <ul class="console-specs">
+                <li><span>CPU</span> 65C02 @ 3.9 MHz</li>
+                <li><span>SCREEN</span> 3.5" Color LCD</li>
+                <li><span>COLORS</span> 4096</li>
+                <li><span>BATTERY</span> 4x AA</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -247,82 +279,80 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works" class="how-section">
+  <!-- HISTORY -->
+  <section id="history" class="history-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">آلية العمل</span>
-        <h2>كيف يعمل الذكاء الاصطناعي؟</h2>
-        <p>عملية التوليد من النص إلى الفيديو في 4 خطوات</p>
+        <span class="section-tag">OUR STORY</span>
+        <h2>50+ YEARS OF GAMING</h2>
+        <p>From a garage in California to global icon</p>
       </div>
-      <div class="steps-timeline">
-        <div class="step" data-step="1">
-          <div class="step-icon">📝</div>
-          <div class="step-content">
-            <h3>تحليل النص</h3>
-            <p>يقوم النموذج اللغوي بتحليل وصفك واستخراج العناصر الرئيسية: الموضوع، الهيكل، والرسائل المهمة.</p>
+      <div class="timeline">
+        <div class="timeline-item left">
+          <div class="timeline-dot">1972</div>
+          <div class="timeline-card">
+            <h4>ATARI IS BORN</h4>
+            <p>Nolan Bushnell and Ted Dabney founded Atari in Sunnyvale, California. Pong was released the same year, becoming the first commercially successful video game.</p>
           </div>
         </div>
-        <div class="step-connector"></div>
-        <div class="step" data-step="2">
-          <div class="step-icon">🎨</div>
-          <div class="step-content">
-            <h3>توليد التصميم</h3>
-            <p>يُنشئ نموذج Stable Diffusion صوراً ومشاهد مخصصة تتناسب مع موضوعك ونمط التصميم المختار.</p>
+        <div class="timeline-item right">
+          <div class="timeline-dot">1975</div>
+          <div class="timeline-card">
+            <h4>HOME PONG</h4>
+            <p>Atari releases a home version of Pong. Sears sells 150,000 units in the first holiday season alone, proving the viability of home gaming.</p>
           </div>
         </div>
-        <div class="step-connector"></div>
-        <div class="step" data-step="3">
-          <div class="step-icon">🎬</div>
-          <div class="step-content">
-            <h3>تجميع الفيديو</h3>
-            <p>يُجمّع محرك الرسوم المتحركة كل العناصر: الصور، النصوص، الانتقالات، والتأثيرات في مشاهد متسلسلة.</p>
+        <div class="timeline-item left">
+          <div class="timeline-dot">1977</div>
+          <div class="timeline-card">
+            <h4>ATARI 2600 LAUNCH</h4>
+            <p>The Atari 2600 (originally VCS) launches at $199. With a cartridge-based system, it becomes the best-selling game console of its era.</p>
           </div>
         </div>
-        <div class="step-connector"></div>
-        <div class="step" data-step="4">
-          <div class="step-icon">🔊</div>
-          <div class="step-content">
-            <h3>إضافة الصوت</h3>
-            <p>يُحوّل نموذج TTS النص إلى صوت احترافي، ويُضاف الموسيقى الخلفية تلقائياً لإنتاج فيديو متكامل.</p>
+        <div class="timeline-item right">
+          <div class="timeline-dot">1982</div>
+          <div class="timeline-card">
+            <h4>PEAK & CRASH</h4>
+            <p>Atari revenues hit $2 billion — then the video game crash of 1983 shook the entire industry. Poor game quality and market saturation took their toll.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-dot">1989</div>
+          <div class="timeline-card">
+            <h4>LYNX & JAGUAR ERA</h4>
+            <p>Atari launches the Lynx (world's first color handheld) and later the Jaguar, claiming it was the first 64-bit console — pushing hardware to its limits.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-dot">2022</div>
+          <div class="timeline-card">
+            <h4>ATARI REBORN</h4>
+            <p>The Atari VCS launches, a modern re-imagining of the classic console. The brand lives on through retro collections, new games, and a passionate global fanbase.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE -->
-  <section id="showcase" class="showcase-section">
+  <!-- STATS -->
+  <section class="stats-section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">معرض الأعمال</span>
-        <h2>فيديوهات مُولَّدة بالذكاء الاصطناعي</h2>
-        <p>أمثلة حقيقية من مشاريع أنشأها مستخدمونا</p>
-      </div>
-      <div class="showcase-grid">
-        <div class="showcase-card" onclick="loadShowcase(0)">
-          <canvas class="showcase-canvas" id="sc0" width="320" height="180"></canvas>
-          <div class="showcase-info">
-            <h4>شرح تصميم متجر إلكتروني</h4>
-            <span class="showcase-tag">تجارة إلكترونية</span>
-            <span class="showcase-duration">2:30 دقيقة</span>
-          </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num" data-target="500">0</div>
+          <div class="stat-label">GAME TITLES</div>
         </div>
-        <div class="showcase-card" onclick="loadShowcase(1)">
-          <canvas class="showcase-canvas" id="sc1" width="320" height="180"></canvas>
-          <div class="showcase-info">
-            <h4>عرض تطبيق توصيل طلبات</h4>
-            <span class="showcase-tag">تطبيقات</span>
-            <span class="showcase-duration">1:45 دقيقة</span>
-          </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="50">0</div>
+          <div class="stat-label">YEARS OF GAMING</div>
         </div>
-        <div class="showcase-card" onclick="loadShowcase(2)">
-          <canvas class="showcase-canvas" id="sc2" width="320" height="180"></canvas>
-          <div class="showcase-info">
-            <h4>شرح نظام إدارة المدرسة</h4>
-            <span class="showcase-tag">تعليم</span>
-            <span class="showcase-duration">3:00 دقيقة</span>
-          </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="30">0</div>
+          <div class="stat-label">MILLION UNITS SOLD</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="1972">0</div>
+          <div class="stat-label">FOUNDED</div>
         </div>
       </div>
     </div>
@@ -331,14 +361,23 @@
   <!-- CTA -->
   <section class="cta-section">
     <div class="container">
-      <div class="cta-card">
-        <div class="cta-bg-glow"></div>
-        <h2>ابدأ في إنشاء فيديوهاتك الآن</h2>
-        <p>انضم إلى أكثر من 10,000 منشئ محتوى ومطور يستخدمون VidAI</p>
-        <div class="cta-actions">
-          <button class="btn-primary large" onclick="scrollToDemo()">ابدأ مجاناً</button>
-          <button class="btn-ghost">تعرف على الخطط</button>
+      <div class="cta-box">
+        <div class="cta-pixel-art">
+          <div class="pixel-row">
+            <div class="px" style="background:#ff6600"></div>
+            <div class="px" style="background:#ff6600"></div>
+            <div class="px"></div>
+            <div class="px" style="background:#ff6600"></div>
+            <div class="px" style="background:#ff6600"></div>
+          </div>
         </div>
+        <h2>READY PLAYER ONE?</h2>
+        <p>Relive the classics. Discover new favorites. Join the Atari family.</p>
+        <div class="cta-form">
+          <input type="email" placeholder="ENTER YOUR EMAIL" class="cta-input" />
+          <button class="btn-primary" onclick="handleSignup()">INSERT COIN</button>
+        </div>
+        <div class="cta-note" id="ctaNote"></div>
       </div>
     </div>
   </section>
@@ -346,42 +385,46 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo">
-            <span class="logo-icon">🎬</span>
-            <span class="logo-text">VidAI</span>
+      <div class="footer-top">
+        <div class="footer-logo">
+          <div class="atari-logo">
+            <div class="logo-mark small">
+              <div class="logo-center"></div>
+              <div class="logo-left"></div>
+              <div class="logo-right"></div>
+            </div>
+            <span class="logo-text">ATARI</span>
           </div>
-          <p>منصة توليد الفيديو بالذكاء الاصطناعي الأكثر تقدماً في العالم العربي</p>
+          <p>Born to play since 1972</p>
         </div>
         <div class="footer-links">
-          <h4>المنتج</h4>
-          <a href="#">المميزات</a>
-          <a href="#">الأسعار</a>
-          <a href="#">API</a>
-          <a href="#">التوثيق</a>
+          <h4>GAMES</h4>
+          <a href="#">Pong</a>
+          <a href="#">Asteroids</a>
+          <a href="#">Centipede</a>
+          <a href="#">Breakout</a>
         </div>
         <div class="footer-links">
-          <h4>الشركة</h4>
-          <a href="#">من نحن</a>
-          <a href="#">المدونة</a>
-          <a href="#">وظائف</a>
-          <a href="#">تواصل معنا</a>
+          <h4>COMPANY</h4>
+          <a href="#">About</a>
+          <a href="#">History</a>
+          <a href="#">Press</a>
+          <a href="#">Careers</a>
         </div>
         <div class="footer-links">
-          <h4>الدعم</h4>
-          <a href="#">مركز المساعدة</a>
-          <a href="#">المجتمع</a>
-          <a href="#">الشروط والأحكام</a>
-          <a href="#">الخصوصية</a>
+          <h4>SUPPORT</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 VidAI — جميع الحقوق محفوظة</p>
+        <p>© 2026 ATARI — ALL RIGHTS RESERVED</p>
         <div class="social-links">
-          <a href="#">Twitter</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">YouTube</a>
+          <a href="#">TWITTER</a>
+          <a href="#">YOUTUBE</a>
+          <a href="#">DISCORD</a>
         </div>
       </div>
     </div>
