@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --color-bg: #080808;
+  --color-bg-raised: #101010;
+  --color-bg-raised-2: #161513;
+  --color-fg: #f2f0ea;
+  --color-fg-muted: #a8a29a;
+  --color-gold: #c8a96e;
+  --color-gold-dim: #8a7350;
+  --color-line: rgba(200, 169, 110, 0.16);
+  --color-line-strong: rgba(200, 169, 110, 0.32);
+  --color-bull: #8fb99b;
+  --color-bear: #c9836a;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-raised: var(--color-bg-raised);
+  --color-bg-raised-2: var(--color-bg-raised-2);
+  --color-fg: var(--color-fg);
+  --color-fg-muted: var(--color-fg-muted);
+  --color-gold: var(--color-gold);
+  --color-gold-dim: var(--color-gold-dim);
+  --color-line: var(--color-line);
+  --color-line-strong: var(--color-line-strong);
+  --color-bull: var(--color-bull);
+  --color-bear: var(--color-bear);
+  --font-cairo: var(--font-cairo);
+  --font-manrope: var(--font-manrope);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  background: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 15%,
+    var(--color-gold) 85%,
+    transparent
+  );
+}
+
+.reveal {
+  animation: reveal-in 0.6s ease-out both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

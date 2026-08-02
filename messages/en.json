@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "analysis": "Analysis",
+    "academy": "Academy",
+    "vip": "VIP",
+    "contact": "Contact",
+    "langToggle": "العربية",
+    "langToggleShort": "AR"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "riskTitle": "Risk Warning",
+    "riskBody": "Trading financial markets carries a substantial risk of loss and may not be suitable for all investors. Past performance is not a reliable indicator of future results. Everything published on this site is educational and analytical content only, and does not constitute investment advice or a recommendation to buy or sell.",
+    "quickLinks": "Quick Links",
+    "followMe": "Follow"
+  },
+  "cta": {
+    "joinVip": "Join the VIP channel",
+    "freeCourse": "Start the free level",
+    "readMore": "Read full analysis",
+    "subscribe": "Subscribe",
+    "send": "Send",
+    "exploreAcademy": "Explore the Academy",
+    "viewAllAnalysis": "All analysis",
+    "enrollNow": "Enroll now",
+    "openAccount": "Open your account"
+  },
+  "scenario": {
+    "bullish": "Bullish scenario",
+    "bearish": "Bearish scenario",
+    "invalidation": "Invalidation level",
+    "instrument": "Instrument"
+  },
+  "postMeta": {
+    "readTime": "min read",
+    "publishedOn": "Published",
+    "backToAnalysis": "Back to analysis",
+    "postDisclaimer": "This analysis is purely educational and reflects my personal reading of the market at the time of writing. It is not investment advice, and the market can change dramatically within minutes."
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "body": "A short read on what actually matters in gold, oil, and the dollar — straight to your inbox, no noise.",
+    "placeholder": "Your email",
+    "button": "Subscribe",
+    "success": "Subscribed. Check your inbox to confirm.",
+    "error": "Something went wrong, please try again."
+  },
+  "contactForm": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send message",
+    "success": "Message received — I'll get back to you soon.",
+    "error": "Couldn't send the message, try again or email me directly."
+  },
+  "offers": {
+    "vipTitle": "VIP Channel",
+    "vipDesc": "In-depth analysis, detailed scenarios, and daily market coverage, direct on Telegram.",
+    "academyTitle": "Lotas Capital Academy",
+    "academyDesc": "A complete trading curriculum from zero to advanced: SMC, Elliott Wave, and risk management.",
+    "freeTitle": "Free content",
+    "freeDesc": "Regular analysis and educational articles, no cost, to build the right foundation.",
+    "priceOnRequest": "Price on signup"
+  }
+}
