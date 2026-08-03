@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
+  const body = (await request.json().catch(() => null)) as Record<
+    string,
+    unknown
+  > | null;
   const email = typeof body?.email === "string" ? body.email.trim() : "";
 
   if (!email || !EMAIL_RE.test(email)) {

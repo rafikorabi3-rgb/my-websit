@@ -6,8 +6,12 @@ Tailwind CSS v4, and MDX-backed analysis posts.
 
 ## Stack & architecture
 
-- **Next.js 16 (App Router)** — no Vercel-only features used (no ISR, no
-  edge functions), so this deploys to any Node-capable host.
+- **Next.js 16 (App Router)**, deployed to **Cloudflare Workers** via
+  [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare) — Cloudflare's
+  current recommended path for full Next.js apps (API routes included), which
+  now supersedes the older `@cloudflare/next-on-pages` "Pages" adapter. It
+  still lives under **Workers & Pages** in the Cloudflare dashboard. A
+  Docker image is also included as a host-agnostic fallback (see Deploy).
 - **Two independent root layouts** — `src/app/(ar)/layout.tsx` (Arabic, no
   URL prefix) and `src/app/en/layout.tsx` (English, `/en` prefix). Each sets
   its own `<html lang dir>` and loads Cairo (Arabic) / Manrope (Latin) —
@@ -32,9 +36,12 @@ src/app/(ar)/...                 — Arabic pages (root layout, no URL prefix)
 src/app/en/...                   — English pages (root layout, /en prefix)
 src/app/api/{newsletter,contact} — stub form endpoints (see below)
 src/app/{sitemap,robots}.ts      — SEO
-src/app/{,en/}rss.xml/route.ts   — per-locale analysis RSS feed
+src/app/{,en/}rss.xml/route.ts   — per-locale analysis RSS feed (static, build-time)
 src/components/                  — shared UI (Header, Footer, ScenarioBox, ...)
 src/lib/                         — content loader, i18n, metadata, schema.org, site config
+wrangler.jsonc                   — Cloudflare Worker config (name, bindings, compat flags)
+open-next.config.ts              — OpenNext Cloudflare adapter config
+Dockerfile                       — fallback: plain Node image for any other host
 ```
 
 ## Local setup
@@ -113,32 +120,82 @@ sanctions-risky vendor before you have one.
 - No performance claims or fabricated testimonials were added anywhere;
   placeholders are explicit `FILL_IN` markers, never invented numbers.
 
-## Deploy
+## Deploy — Cloudflare Workers
 
-The app builds with `output: "standalone"`, so it runs as a plain Node
-process anywhere — no platform lock-in.
+This repo is wired up for Cloudflare Workers via
+[`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare) (config in
+`wrangler.jsonc` and `open-next.config.ts`). This has been verified locally
+in this environment: `npm run build`, `npx opennextjs-cloudflare build`, and
+`npx wrangler deploy --dry-run` all complete cleanly, producing a ~1.5 MB
+gzipped Worker with the correct `ASSETS` / `IMAGES` / self-reference
+bindings. Actually pushing it live requires *your* Cloudflare account —
+that's not something that can be done from here. Two ways to finish it:
 
-**Docker (recommended for self-hosting):**
+### Option A — Git integration (recommended, no token sharing)
+
+1. Log into [dash.cloudflare.com](https://dash.cloudflare.com) with your own
+   account.
+2. Go to **Workers & Pages** → **Create** → connect to Git → authorize the
+   Cloudflare GitHub App → select `rafikorabi3-rgb/my-websit`.
+3. When it asks for build settings:
+   - **Build command:** `npx opennextjs-cloudflare build`
+   - **Deploy command:** `npx wrangler deploy`
+   - (If the dashboard only offers a single command field, use
+     `npm run deploy` — it chains both.)
+4. Set the production branch (this branch, or `main` once the PR is merged).
+5. Deploy. Cloudflare gives you a free `*.workers.dev` URL immediately;
+   attach your real domain afterward from the Worker's **Custom Domains**
+   tab once you have one.
+
+Every future push to that branch redeploys automatically — no further
+action needed on your end, and nothing needs to be shared with me.
+
+### Option B — Ask me to run it
+
+If you'd rather I trigger the deploy directly, generate a
+[Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens)
+scoped to **just** "Edit Cloudflare Workers" for your account, and share it
+as an environment variable (`CLOUDFLARE_API_TOKEN`) rather than in chat.
+I'd run `npm run deploy` with it. Prefer Option A unless there's a reason
+you want this done from here — a scoped token is safer, but Git integration
+means you're never sharing account access at all.
+
+### Before your first deploy
+
+- `wrangler.jsonc` ships with a placeholder
+  `vars.NEXT_PUBLIC_SITE_URL: "https://example.com"`. Update it to your real
+  domain (or override it as a Cloudflare dashboard environment variable for
+  the Worker, without touching the repo) — it feeds canonical URLs, the
+  sitemap, RSS, and JSON-LD.
+- The RSS routes (`/rss.xml`, `/en/rss.xml`) are forced static
+  (`export const dynamic = "force-static"`) on purpose: Workers have no
+  filesystem access to the MDX source at request time, so they're rendered
+  once at build time like every other page here.
+- `npx opennextjs-cloudflare build` prints a wall of
+  `ERROR Failed to copy .../node_modules/<mdx-package>` lines during
+  bundling. This has been checked and is cosmetic in this environment — the
+  packages are still present in the final bundle
+  (`.open-next/server-functions/default/node_modules`), and
+  `wrangler deploy --dry-run` completes with no errors. All analysis posts
+  are statically prerendered anyway, so MDX compilation never runs at
+  Worker request time regardless.
+
+## Deploy — Docker (fallback, any other host)
+
+A plain Node Docker image is also included, for hosts other than
+Cloudflare (a VPS, Railway, Fly.io, ...):
 
 ```bash
 docker build -t rafikorabi-site .
 docker run -p 3000:3000 --env-file .env.local rafikorabi-site
 ```
 
-**Any Node host without Docker:**
+Or without Docker, on any Node host:
 
 ```bash
 npm run build
-node .next/standalone/server.js
+npm run start
 ```
-
-Serve `public/` and `.next/static/` alongside it as documented in the
-[Next.js standalone output guide](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).
-
-Whichever host you land on (Cloudflare Pages, Railway, Fly.io, a VPS, ...),
-point its build command at `npm run build` and its start command at
-`node .next/standalone/server.js` (or use the Dockerfile directly if the
-host supports it).
 
 ## A note on this Next.js version
 
