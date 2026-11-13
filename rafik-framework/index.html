@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rafik Framework Active Learning Engine</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="#home">
+        <span class="brand-en" dir="ltr">Rafik Framework</span>
+        <span class="brand-sub" dir="ltr">Active Learning Engine</span>
+        <span class="brand-ar">محرك التعلّم النشط</span>
+      </a>
+      <nav aria-label="أقسام التطبيق">
+        <a href="#home" data-view="home">الرئيسية</a>
+        <a href="#curriculum" data-view="curriculum">المنهج</a>
+        <a href="#lesson" data-view="lesson">الدرس العملي</a>
+        <a href="#gaps" data-view="gaps">الفجوات والأسئلة <span class="badge" id="badge-gaps" hidden></span></a>
+        <a href="#workspaces" data-view="workspaces">مساحات العمل</a>
+        <a href="#board" data-view="board">لوحة المتابعة</a>
+        <a href="#profile" data-view="profile">الملف والبيانات</a>
+      </nav>
+      <p class="store" id="store"></p>
+    </aside>
+    <main id="app"></main>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+
+  <dialog id="dlg" aria-labelledby="dlg-title">
+    <h2 id="dlg-title"></h2>
+    <textarea id="dlg-text" rows="12" readonly aria-label="النص"></textarea>
+    <div class="row"><button class="btn primary" data-act="closeDlg">إغلاق</button></div>
+  </dialog>
+
+  <noscript><p style="padding:24px">يحتاج هذا التطبيق إلى تفعيل JavaScript.</p></noscript>
+
+  <script src="curriculum.js"></script>
+  <script src="templates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
